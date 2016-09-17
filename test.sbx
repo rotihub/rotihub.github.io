@@ -1,3 +1,4 @@
+//
 { "extensionName": "Test",
  "extensionPort": 8080,
  "blockSpecs": [
