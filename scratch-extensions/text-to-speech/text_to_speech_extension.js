@@ -19,8 +19,9 @@ new (function() {
     };*/
 
     ext.speak_text = function (text, callback) {
-        var u = new SpeechSynthesisUtterance(text.toString());
-        u.pitch = 0.1;
+    //    var u = new SpeechSynthesisUtterance(text.toString());
+        var u = new SpeechSynthesisUtterance("Rohit");    
+        u.pitch = 2;
         u.onend = function(event) {
             if (typeof callback=="function") callback();
         };
