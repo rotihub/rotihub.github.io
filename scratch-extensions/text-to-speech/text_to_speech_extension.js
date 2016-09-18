@@ -21,6 +21,7 @@ new (function() {
 
     ext.speak_text = function (text, callback) {
         var u = new SpeechSynthesisUtterance(text.toString());
+        u.pitch = 1.5;
         u.onend = function(event) {
             if (typeof callback=="function") callback();
         };
