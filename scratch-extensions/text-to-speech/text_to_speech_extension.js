@@ -20,6 +20,16 @@ new (function() {
 
     ext.speak_text = function (text, callback) {
     //    var u = new SpeechSynthesisUtterance(text.toString());
+        var u = new SpeechSynthesisUtterance("Bittu");    
+        u.onend = function(event) {
+            if (typeof callback=="function") callback();
+        };
+        
+        speechSynthesis.speak(u);
+    };
+
+    ext.speak_textGB = function (text, callback) {
+    //    var u = new SpeechSynthesisUtterance(text.toString());
         var u = new SpeechSynthesisUtterance("Rohit");    
         u.pitch = 0.01;
         u.lang = 'en-GB';
@@ -29,7 +39,6 @@ new (function() {
         
         speechSynthesis.speak(u);
     };
-
     ext._shutdown = function() {};
 
     ext._getStatus = function() {
@@ -43,6 +52,8 @@ new (function() {
         blocks: [
             //['', 'set voice to %m.voices', 'set_voice', ''],
             ['w', 'speak %s', 'speak_text', 'Hello!'],
+            ['w', 'speakGB %s', 'speak_textGB', 'Hello!'],
+
         ],
         /*menus: {
             voices: _get_voices(),
