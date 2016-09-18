@@ -53,7 +53,7 @@ u.voice = voices[3];
         blocks: [
             //['', 'set voice to %m.voices', 'set_voice', ''],
             ['w', 'speak %s', 'speak_text', 'Hello!'],
-            ['w', 'speakGB %s', 'speak_textGB', 3],
+            ['w', 'speakGB %s', 'speak_textGB', 'Juju!'],
 
         ],
         /*menus: {
