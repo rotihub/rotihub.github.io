@@ -28,12 +28,11 @@ new (function() {
         speechSynthesis.speak(u);
     };
 
-    ext.speak_textGB = function (n, callback) {
-    //    var u = new SpeechSynthesisUtterance(text.toString());
-        var u = new SpeechSynthesisUtterance("Rohit");    
+    ext.speak_textGB = function (text, callback) {
+        var u = new SpeechSynthesisUtterance(text.toString());
 var voices = window.speechSynthesis.getVoices();
 
-u.voice = voices[n];
+u.voice = voices[3];
 
         u.onend = function(event) {
             if (typeof callback=="function") callback();
@@ -54,7 +53,7 @@ u.voice = voices[n];
         blocks: [
             //['', 'set voice to %m.voices', 'set_voice', ''],
             ['w', 'speak %s', 'speak_text', 'Hello!'],
-            ['w', 'speakGB %n', 'speak_textGB', 3],
+            ['w', 'speakGB %s', 'speak_textGB', 3],
 
         ],
         /*menus: {
