@@ -1,5 +1,4 @@
 /* Extension using the JavaScript Speech API for text to speech */
-/* Sayamindu Dasgupta <sayamindu@media.mit.edu>, April 2014 */
 
 new (function() {
     var ext = this;
