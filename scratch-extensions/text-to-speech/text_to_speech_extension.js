@@ -32,7 +32,7 @@ new (function() {
     //    var u = new SpeechSynthesisUtterance(text.toString());
         var u = new SpeechSynthesisUtterance("Rohit");    
         u.pitch = 0.01;
-        u.lang = 'en-GB';
+        u.lang = 'es';
         u.onend = function(event) {
             if (typeof callback=="function") callback();
         };
