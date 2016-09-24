@@ -37,8 +37,9 @@
     ext.getResistanceD = function()  { return getSensor('resistance-D'); };
    
     function getSensor(whichSensor) {
+          console.log('whichSensor');
         return inputs[whichSensor];
-    }
+   }
 
 
    // Hat blocks
