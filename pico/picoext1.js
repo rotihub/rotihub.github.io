@@ -109,22 +109,22 @@
         device.set_receive_handler(function(data) {
  //           console.log('Received: ' + data.byteLength);
             console.log('Received: ' + data);            
-            if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
-            else rawData = appendBuffer(rawData, data);
+//            if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
+//            else rawData = appendBuffer(rawData, data);
 
-            if(rawData.byteLength >= 18) {
-                console.log(rawData);
-                processData();
+//            if(rawData.byteLength >= 18) {
+//                console.log(rawData);
+//                processData();
                 //device.send(pingCmd.buffer);
-            }
+ //           }
         });
 
         // Tell the PicoBoard to send a input data every 50ms
         var pingCmd = new Uint8Array(1);
         pingCmd[0] = 1;
-        poller = setInterval(function() {
-            device.send(pingCmd.buffer);
-        }, 50);
+//        poller = setInterval(function() {
+//            device.send(pingCmd.buffer);
+//        }, 50);
     };
 
     ext._deviceRemoved = function(dev) {
