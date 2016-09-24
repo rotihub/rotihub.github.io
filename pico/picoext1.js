@@ -113,9 +113,9 @@
         // Tell the PicoBoard to send a input data every 50ms
         var pingCmd = new Uint8Array(1);
         pingCmd[0] = 1;
-//        poller = setInterval(function() {
-//            device.send(pingCmd.buffer);
-//        }, 50);
+        poller = setInterval(function() {
+            device.send(pingCmd.buffer);
+        }, 50);
         console.log('exit device conn');
     };
 
