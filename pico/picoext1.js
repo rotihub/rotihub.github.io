@@ -104,9 +104,11 @@
 
         device = dev;
         device.open({ stopBits: 0, bitRate: 115200, ctsFlowControl: 0 });
+        
         console.log('Port opened');
         device.set_receive_handler(function(data) {
-            console.log('Received: ' + data.byteLength);
+ //           console.log('Received: ' + data.byteLength);
+            console.log('Received: ' + data);            
             if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
             else rawData = appendBuffer(rawData, data);
 
