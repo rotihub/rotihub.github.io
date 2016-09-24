@@ -120,20 +120,16 @@
     };
 
    function deviceOpened(dev) {
-  //       device.set_receive_handler('demo',function(data) {
- //           processData(data);
-//        });
-        device.set_receive_handler(function(data) {
-            console.log('in set_receive_handler: ');            
+          device.set_receive_handler(function(data) {
             console.log('Received: ' + data.byteLength);            
             if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
             else rawData = appendBuffer(rawData, data);
 
-            if(rawData.byteLength >= 18) {
+  //          if(rawData.byteLength >= 18) {
                 console.log(rawData);
                 processData();
                 //device.send(pingCmd.buffer);
-            }
+//            }
         });
    
    };
@@ -185,5 +181,5 @@
         },
         url: 'http://info.scratch.mit.edu/Sensor_Board'
     };
-    ScratchExtensions.register('Micro-Bit', descriptor, ext, {type: 'serial'});
+    ScratchExtensions.register('MicroBit', descriptor, ext, {type: 'serial'});
 })({});
