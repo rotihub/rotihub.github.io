@@ -98,6 +98,7 @@
         for(var i = 0; i < array.byteLength; ++i){
             result+= (String.fromCharCode(array[i]));
         }
+	return result;
     }      
     function appendBuffer( buffer1, buffer2 ) {
         var tmp = new Uint8Array( buffer1.byteLength + buffer2.byteLength );
