@@ -108,6 +108,7 @@
         console.log('Port opened');
         device.set_receive_handler(function(data) {
  //           console.log('Received: ' + data.byteLength);
+            console.log('in set_receive_handler: ');            
             console.log('Received: ' + data);            
 //            if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
 //            else rawData = appendBuffer(rawData, data);
@@ -118,7 +119,7 @@
                 //device.send(pingCmd.buffer);
  //           }
         });
-
+    console.log('outside handler');
         // Tell the PicoBoard to send a input data every 50ms
         var pingCmd = new Uint8Array(1);
         pingCmd[0] = 1;
