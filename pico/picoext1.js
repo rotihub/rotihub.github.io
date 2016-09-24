@@ -87,10 +87,8 @@
             }
 
             inputs[name] = v;
-            console.log('nae + v'+ name + v)
         }
 
-        console.log('inputs'+inputs);
         rawData = null;
     }
     function bin2string(array){
