@@ -33,7 +33,12 @@
 		if (sensorState == 'B pressed') return getSensor('button-B') == 1;
 		return false;
      };
-
+    ext.getbuttonpressedValue = function(sensorState) { 
+		if (device == null) return false;
+		if (sensorState == 'A pressed') return getSensor('button-A') == 1;
+		if (sensorState == 'B pressed') return getSensor('button-B') == 1;
+		return false;
+     };
     function processData() {
    //    	console.log('process data');
         var from_MB = "";
@@ -117,14 +122,14 @@
             ['h', 'when %m.button',		'getSensorBooleanValue',	'A pressed'],
       //      ['h', 'when %m.sensor %m.lessMore %n',      'whenSensorValue',     'slider',	'<',    20],
 
-            ['b', 'button %m.button?',	'getSensorBooleanValue',		'A pressed'],
+            ['b', 'button %m.key?',	'getbuttonpressedValue',		'A pressed'],
 
             ['r', 'P0',		'getP0'],
             ['r', 'A',	'button_A'],
             ['r', 'B',	'button_B']
         ],
         menus: {
-            button: ['A pressed', 'B pressed'],
+            key: ['A pressed', 'B pressed'],
             sensor: ['P0', 'light', 'sound', 'resistance-A', 'resistance-B', 'resistance-C', 'resistance-D'],
             lessMore: ['<', '>']
         },
