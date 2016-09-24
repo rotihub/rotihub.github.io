@@ -19,8 +19,8 @@ new (function() {
     };*/
 
     ext.speak_text = function (text, callback) {
-    //    var u = new SpeechSynthesisUtterance(text.toString());
-        var u = new SpeechSynthesisUtterance("Bittu");    
+        var u = new SpeechSynthesisUtterance(text.toString());
+   //     var u = new SpeechSynthesisUtterance("Bittu");    
         u.onend = function(event) {
             if (typeof callback=="function") callback();
         };
