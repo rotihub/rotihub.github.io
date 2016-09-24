@@ -89,7 +89,7 @@
             inputs[name] = v;
         }
 
-        console.log(inputs);
+        console.log('inputs'+inputs);
         rawData = null;
     }
 
