@@ -123,6 +123,7 @@
    function deviceOpened(dev) {
           device.set_receive_handler(function(data) {
             console.log('Received: ' + data.byteLength);            
+            console.log('Data: ' + data);            
             if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
             else rawData = appendBuffer(rawData, data);
 
@@ -182,5 +183,5 @@
         },
         url: 'http://info.scratch.mit.edu/Sensor_Board'
     };
-    ScratchExtensions.register('Microsht', descriptor, ext, {type: 'serial'});
+    ScratchExtensions.register('Microisht', descriptor, ext, {type: 'serial'});
 })({});
