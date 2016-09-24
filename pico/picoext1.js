@@ -105,10 +105,24 @@
         if(device) return;
 
         device = dev;
-        device.open({ stopBits: 0, bitRate: 115200, ctsFlowControl: 0 });
+        device.open({ stopBits: 0, bitRate: 115200, ctsFlowControl: 0 }, deviceOpened);
         
         console.log('Port opened');
-        device.set_receive_handler(function(data) {
+
+        // Tell the PicoBoard to send a input data every 50ms
+        var pingCmd = new Uint8Array(1);
+        pingCmd[0] = 1;
+//        poller = setInterval(function() {
+//            device.send(pingCmd.buffer);
+//        }, 50);
+        console.log('exit device conn');
+    };
+
+   function deviceOpened(dev) {
+         device.set_receive_handler('demo',function(data) {
+ //           processData(data);
+//        });
+//        device.set_receive_handler(function(data) {
  //           console.log('Received: ' + data.byteLength);
             console.log('in set_receive_handler: ');            
             console.log('Received: ' + data);            
@@ -121,16 +135,11 @@
                 //device.send(pingCmd.buffer);
  //           }
         });
-    console.log('outside handler');
-        // Tell the PicoBoard to send a input data every 50ms
-        var pingCmd = new Uint8Array(1);
-        pingCmd[0] = 1;
-//        poller = setInterval(function() {
-//            device.send(pingCmd.buffer);
-//        }, 50);
-        console.log('exit device conn');
-    };
+   
+   };
 
+    
+    
     ext._deviceRemoved = function(dev) {
         console.log('device remve');
         if(device != dev) return;
@@ -176,5 +185,5 @@
         },
         url: 'http://info.scratch.mit.edu/Sensor_Board'
     };
-    ScratchExtensions.register('MicroBit', descriptor, ext, {type: 'serial'});
+    ScratchExtensions.register('Micro-Bit', descriptor, ext, {type: 'serial'});
 })({});
