@@ -2,20 +2,12 @@
     var device = null;
     var rawData = null;
 
-    // Sensor states:
-    var channels = {
-        slider: 7,
-        light: 5,
-        sound: 6,
-        button: 3,
-        'resistance-A': 4,
-        'resistance-B': 2,
-        'resistance-C': 1,
-        'resistance-D': 0
-    };
+  
     var inputs = {
         'button-A': 0,
-        'button-B': 0};
+        'button-B': 0,
+        'P0': ""
+    };
 
     ext.resetAll = function(){};
 
@@ -23,7 +15,8 @@
   
     ext.buttonA = function()  { return getSensor('button-A'); };
     ext.buttonB = function()  { return getSensor('button-B'); };
-    
+    ext.getP0 = function()  { return getSensor('P0'); };
+   
     function getSensor(whichSensor) {
           console.log('whichSensor');
         return inputs[whichSensor];
@@ -37,18 +30,28 @@
     ext.getSensorBooleanValue = function(sensorState) { 
 		if (device == null) return false;
 		if (sensorState == 'A pressed') return getSensor('button-A') = 1;
-		if (sensorState == 'B pressed') return getSensor('button-B') = 2;
+		if (sensorState == 'B pressed') return getSensor('button-B') = 1;
 		return false;
      };
 
-    var inputArray = [];
     function processData() {
        	console.log('process data');
-        console.log('my stuff' + bin2string(rawData)); 
-	console.log(rawData);
-
-            inputs[name] = v;
+        var from_MB= bin2string(rawData); 
+        if parseInt(from_MB == 1){
+            inputs['button-A'] = 1;
+            inputs['button-B'] = 0;
         }
+        else if parseInt(from_MB == 2){
+            inputs['button-A'] = 0;
+            inputs['button-B'] = 1;
+            
+        }
+        else{
+            inputs['button-A'] = 0;
+            inputs['button-B'] = 0;
+            inputs['P0'] = from_MB;
+
+        };
         rawData = null;
     }
     function bin2string(array){
@@ -118,15 +121,8 @@
             ['b', 'button %m.button?',	'getSensorBooleanValue',		'A pressed'],
 
             ['r', 'P0',		'getP0'],
-            ['r', 'slider',		'getSlider'],
-            ['r', 'light',		'getLight'],
-            ['r', 'sound',		'getSound'],
-            ['r', 'resistance-A',	'getResistanceA'],
-            ['r', 'resistance-B',	'getResistanceB'],
-            ['r', 'resistance-C',	'getResistanceC'],
-            ['r', 'resistance-D',	'getResistanceD']
-
-
+            ['r', 'A',	'buttonA'],
+            ['r', 'B',	'buttonA']
         ],
         menus: {
             button: ['A pressed', 'B pressed'],
