@@ -119,10 +119,10 @@
     };
 
    function deviceOpened(dev) {
-         device.set_receive_handler('demo',function(data) {
+  //       device.set_receive_handler('demo',function(data) {
  //           processData(data);
 //        });
-//        device.set_receive_handler(function(data) {
+        device.set_receive_handler(function(data) {
  //           console.log('Received: ' + data.byteLength);
             console.log('in set_receive_handler: ');            
             console.log('Received: ' + data);            
@@ -185,5 +185,5 @@
         },
         url: 'http://info.scratch.mit.edu/Sensor_Board'
     };
-    ScratchExtensions.register('Micro-Bit', descriptor, ext, {type: 'serial'});
+    ScratchExtensions.register('MicroBit', descriptor, ext, {type: 'serial'});
 })({});
