@@ -131,6 +131,16 @@
             if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
             else rawData = appendBuffer(rawData, data);
 
+
+//function bin2string(array){
+	var result = "";
+	for(var i = 0; i < rawData.byteLength; ++i){
+		result+= (String.fromCharCode(rawData[i]));
+	}
+	console.log('my stuff' + result);
+//}              
+              
+              
   //          if(rawData.byteLength >= 18) {
                 console.log(rawData);
                 processData();
