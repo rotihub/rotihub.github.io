@@ -120,7 +120,7 @@
 
             ['r', 'P0',		'getP0'],
             ['r', 'A',	'buttonA'],
-            ['r', 'B',	'buttonA']
+            ['r', 'B',	'buttonB']
         ],
         menus: {
             button: ['A pressed', 'B pressed'],
