@@ -2,46 +2,25 @@
     var device = null;
     var rawData = null;
 
-    // Sensor states:
-    var channels = {
-        slider: 7,
-        light: 5,
-        sound: 6,
-        button: 3,
-        'resistance-A': 4,
-        'resistance-B': 2,
-        'resistance-C': 1,
-        'resistance-D': 0
+  
+    var inputs = {
+        'button-A': 0,
+        'button-B': 0,
+        'P0': ""
     };
-    var inputs = {slider: 0,
-        light: 0,
-        sound: 0,
-        button: 0,
-        'resistance-A': 0,
-        'resistance-B': 0,
-        'resistance-C': 0,
-        'resistance-D': 0};
 
     ext.resetAll = function(){};
 
     // Reporters
-    ext.sensor = function(whichSensor) { return getSensor(whichSensor); };
-
-    ext.getButton = function()  { return getSensor('button'); };
-    ext.getSlider = function()  { return getSensor('slider'); };
-    ext.getSound = function()  { return getSensor('sound'); };
-    ext.getLight = function()  { return getSensor('light'); };
-    ext.getResistanceA = function()  { return getSensor('resistance-A'); };
-    ext.getResistanceB = function()  { return getSensor('resistance-B'); };
-    ext.getResistanceC = function()  { return getSensor('resistance-C'); };
-    ext.getResistanceD = function()  { return getSensor('resistance-D'); };
+  
+    ext.button_A = function()  { return getSensor('button-A'); };
+    ext.button_B = function()  { return getSensor('button-B'); };
+    ext.getP0 = function()  { return getSensor('P0'); };
    
     function getSensor(whichSensor) {
-          console.log('whichSensor');
+ //         console.log('whichSensor');
         return inputs[whichSensor];
    }
-
-
    // Hat blocks
 
     ext.whenSensorValue = function(whichSensor, s, target) { 
@@ -50,47 +29,32 @@
 
     ext.getSensorBooleanValue = function(sensorState) { 
 		if (device == null) return false;
-		if (sensorState == 'button pressed') return getSensor('button') < 1;
-		if (sensorState == 'A connected') return getSensor('resistance-A') < 10;
-		if (sensorState == 'B connected') return getSensor('resistance-B') < 10;
-		if (sensorState == 'C connected') return getSensor('resistance-C') < 10;
-		if (sensorState == 'D connected') return getSensor('resistance-D') < 10;
+		if (sensorState == 'A pressed') return getSensor('button-A') == 1;
+		if (sensorState == 'B pressed') return getSensor('button-B') == 1;
 		return false;
      };
-
-
-    var inputArray = [];
+    ext.getbuttonpressedValue = function(sensorState) { 
+		if (device == null) return false;
+		if (sensorState == 'A pressed') return getSensor('button-A') == 1;
+		if (sensorState == 'B pressed') return getSensor('button-B') == 1;
+		return false;
+     };
     function processData() {
-        console.log('process data');
-        var bytes = new Uint8Array(rawData);
-        for(var i=0; i<9; ++i) {
-            var hb = bytes[i*2] & 127;
-            var channel = hb >> 3;
-            var lb = bytes[i*2+1] & 127;
-            inputArray[channel] = ((hb & 7) << 7) + lb;
-        }
+   //    	console.log('process data');
+        var from_MB = "";
+        from_MB = bin2string(rawData); 
+        if (parseInt(from_MB) == 1){
+            inputs['button-A'] = 1;
+            inputs['button-B'] = 0;
+        } else if (parseInt(from_MB) == 2){
+            inputs['button-A'] = 0;
+            inputs['button-B'] = 1;
+        } else{
+            inputs['button-A'] = 0;
+            inputs['button-B'] = 0;
+            inputs['P0'] = from_MB;
 
-        for(var name in inputs) {
-            var v = inputArray[channels[name]];
-            if(name == 'light') {
-                v = (v < 25) ? 100 - v : Math.round((1023 - v) * (75 / 998));
-            }
-            else if(name == 'sound') {
-                //empirically tested noise sensor floor
-                v = Math.max(0, v - 18)
-                v =  (v < 50) ? v / 2 :
-                    //noise ceiling
-                    25 + Math.min(75, Math.round((v - 50) * (75 / 580)));
-            }
-            else {
-                v = (100 * v) / 1023;
-            }
-
-            inputs[name] = v;
-            console.log('nae + v'+ name + v)
-        }
-
-        console.log('inputs'+inputs);
+        };
         rawData = null;
     }
     function bin2string(array){
@@ -98,6 +62,8 @@
         for(var i = 0; i < array.byteLength; ++i){
             result+= (String.fromCharCode(array[i]));
         }
+	    console.log(result);
+	return result;
     }      
     function appendBuffer( buffer1, buffer2 ) {
         var tmp = new Uint8Array( buffer1.byteLength + buffer2.byteLength );
@@ -108,39 +74,28 @@
 
     var poller = null;
     ext._deviceConnected = function(dev) {
-        console.log('device connected');
         if(device) return;
 
-        device = dev;
-        device.open({ stopBits: 0, bitRate: 115200, ctsFlowControl: 0 }, deviceOpened);
-        
+	device = dev;
+        device.open({ stopBits: 0, bitRate: 115200, ctsFlowControl: 0 }, deviceOpened);    
         console.log('Port opened');
 
-        // Tell the PicoBoard to send a input data every 50ms
         var pingCmd = new Uint8Array(1);
         pingCmd[0] = 1;
         poller = setInterval(function() {
             device.send(pingCmd.buffer);
         }, 50);
-        console.log('exit device conn');
     };
 
    function deviceOpened(dev) {
           device.set_receive_handler(function(data) {
-            console.log('Received: ' + data.byteLength);            
-            if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
-            else rawData = appendBuffer(rawData, data);
-    
-              console.log('my stuff' + bin2string(rawData)); 
-              console.log(rawData);
+            console.log('Received: ' + data.byteLength);        
+		rawData = new Uint8Array(data);  
               processData();
                 //device.send(pingCmd.buffer);
 //            }
         });
-   
    };
-
-    
     
     ext._deviceRemoved = function(dev) {
         console.log('device remve');
@@ -164,25 +119,18 @@
 
     var descriptor = {
         blocks: [
-            ['h', 'when %m.booleanSensor',		'getSensorBooleanValue',	'button pressed'],
-            ['h', 'when %m.sensor %m.lessMore %n',      'whenSensorValue',     'slider',	'<',    20],
+            ['h', 'when %m.button',		'getSensorBooleanValue',	'A pressed'],
+      //      ['h', 'when %m.sensor %m.lessMore %n',      'whenSensorValue',     'slider',	'<',    20],
 
-            ['b', 'sensor %m.booleanSensor?',	'getSensorBooleanValue',		'button pressed'],
+            ['b', 'button %m.key?',	'getbuttonpressedValue',		'A pressed'],
 
-            ['r', 'button',		'getButton'],
-            ['r', 'slider',		'getSlider'],
-            ['r', 'light',		'getLight'],
-            ['r', 'sound',		'getSound'],
-            ['r', 'resistance-A',	'getResistanceA'],
-            ['r', 'resistance-B',	'getResistanceB'],
-            ['r', 'resistance-C',	'getResistanceC'],
-            ['r', 'resistance-D',	'getResistanceD']
-
-
+            ['r', 'P0',		'getP0'],
+            ['r', 'A',	'button_A'],
+            ['r', 'B',	'button_B']
         ],
         menus: {
-            booleanSensor: ['button pressed', 'A connected', 'B connected', 'C connected', 'D connected'],
-            sensor: ['slider', 'light', 'sound', 'resistance-A', 'resistance-B', 'resistance-C', 'resistance-D'],
+            key: ['A pressed', 'B pressed'],
+            sensor: ['P0', 'light', 'sound', 'resistance-A', 'resistance-B', 'resistance-C', 'resistance-D'],
             lessMore: ['<', '>']
         },
         url: 'http://info.scratch.mit.edu/Sensor_Board'
