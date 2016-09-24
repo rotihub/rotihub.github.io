@@ -137,10 +137,7 @@
                 //device.send(pingCmd.buffer);
 //            }
         });
-   
    };
-
-    
     
     ext._deviceRemoved = function(dev) {
         console.log('device remve');
@@ -164,12 +161,12 @@
 
     var descriptor = {
         blocks: [
-            ['h', 'when %m.booleanSensor',		'getSensorBooleanValue',	'button pressed'],
-            ['h', 'when %m.sensor %m.lessMore %n',      'whenSensorValue',     'slider',	'<',    20],
+            ['h', 'when %m.button',		'getSensorBooleanValue',	'A pressed'],
+      //      ['h', 'when %m.sensor %m.lessMore %n',      'whenSensorValue',     'slider',	'<',    20],
 
-            ['b', 'sensor %m.booleanSensor?',	'getSensorBooleanValue',		'button pressed'],
+            ['b', 'button %m.button?',	'getSensorBooleanValue',		'A pressed'],
 
-            ['r', 'button',		'getButton'],
+            ['r', 'P0',		'getP0'],
             ['r', 'slider',		'getSlider'],
             ['r', 'light',		'getLight'],
             ['r', 'sound',		'getSound'],
@@ -181,8 +178,8 @@
 
         ],
         menus: {
-            booleanSensor: ['button pressed', 'A connected', 'B connected', 'C connected', 'D connected'],
-            sensor: ['slider', 'light', 'sound', 'resistance-A', 'resistance-B', 'resistance-C', 'resistance-D'],
+            button: ['A pressed', 'B pressed'],
+            sensor: ['P0', 'light', 'sound', 'resistance-A', 'resistance-B', 'resistance-C', 'resistance-D'],
             lessMore: ['<', '>']
         },
         url: 'http://info.scratch.mit.edu/Sensor_Board'
