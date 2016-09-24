@@ -87,9 +87,10 @@
             }
 
             inputs[name] = v;
+            console.log('nae + v'+ name + v)
         }
 
-        console.log('inputs'+inputs.toString);
+        console.log('inputs'+inputs);
         rawData = null;
     }
 
@@ -181,5 +182,5 @@
         },
         url: 'http://info.scratch.mit.edu/Sensor_Board'
     };
-    ScratchExtensions.register('MicroBit1', descriptor, ext, {type: 'serial'});
+    ScratchExtensions.register('Microsht', descriptor, ext, {type: 'serial'});
 })({});
