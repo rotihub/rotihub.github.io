@@ -37,11 +37,11 @@
     function processData() {
        	console.log('process data');
         var from_MB= bin2string(rawData); 
-        if parseInt(from_MB == 1){
+        if (parseInt(from_MB) == 1){
             inputs['button-A'] = 1;
             inputs['button-B'] = 0;
         }
-        else if parseInt(from_MB == 2){
+        else if (parseInt(from_MB) == 2){
             inputs['button-A'] = 0;
             inputs['button-B'] = 1;
             
