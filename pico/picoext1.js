@@ -100,6 +100,7 @@
 
     var poller = null;
     ext._deviceConnected = function(dev) {
+        console.log('device connected');
         if(device) return;
 
         device = dev;
@@ -126,20 +127,24 @@
 //        poller = setInterval(function() {
 //            device.send(pingCmd.buffer);
 //        }, 50);
+        console.log('exit device conn');
     };
 
     ext._deviceRemoved = function(dev) {
+        console.log('device remve');
         if(device != dev) return;
         if(poller) poller = clearInterval(poller);
         device = null;
     };
 
     ext._shutdown = function() {
-        if(device) device.close();
+         console.log('dev shutd');
+       if(device) device.close();
         device = null;
     };
 
     ext._getStatus = function() {
+         console.log('get status');
         if(!device) return {status: 1, msg: 'PicoBoard disconnected'};
         return {status: 2, msg: 'PicoBoard connected'};
     }
