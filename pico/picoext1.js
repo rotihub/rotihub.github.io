@@ -66,9 +66,13 @@
         console.log('bytes' +bytes);
         for(var i=0; i<9; ++i) {
             var hb = bytes[i*2] & 127;
+        console.log('hb' +hb);
             var channel = hb >> 3;
+        console.log('channel' +channel);
             var lb = bytes[i*2+1] & 127;
+        console.log('lb' +lb);
             inputArray[channel] = ((hb & 7) << 7) + lb;
+        console.log('inputArray[channel]' +inputArray[channel]);
         }
 
         for(var name in inputs) {
