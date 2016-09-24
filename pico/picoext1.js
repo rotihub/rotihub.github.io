@@ -18,7 +18,7 @@
     ext.getP0 = function()  { return getSensor('P0'); };
    
     function getSensor(whichSensor) {
-          console.log('whichSensor');
+ //         console.log('whichSensor');
         return inputs[whichSensor];
    }
    // Hat blocks
@@ -29,13 +29,13 @@
 
     ext.getSensorBooleanValue = function(sensorState) { 
 		if (device == null) return false;
-		if (sensorState == 'A pressed') return getSensor('button-A') = 1;
-		if (sensorState == 'B pressed') return getSensor('button-B') = 1;
+		if (sensorState == 'A pressed') return getSensor('button-A') == 1;
+		if (sensorState == 'B pressed') return getSensor('button-B') == 1;
 		return false;
      };
 
     function processData() {
-       	console.log('process data');
+   //    	console.log('process data');
         var from_MB = "";
         from_MB = bin2string(rawData); 
         if (parseInt(from_MB) == 1){
@@ -57,6 +57,7 @@
         for(var i = 0; i < array.byteLength; ++i){
             result+= (String.fromCharCode(array[i]));
         }
+	    console.log(result);
 	return result;
     }      
     function appendBuffer( buffer1, buffer2 ) {
