@@ -133,7 +133,7 @@
                 console.log(rawData);
                 processData();
                 //device.send(pingCmd.buffer);
- //           }
+            }
         });
    
    };
