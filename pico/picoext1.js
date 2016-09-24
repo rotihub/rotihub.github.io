@@ -36,7 +36,8 @@
 
     function processData() {
        	console.log('process data');
-        var from_MB= bin2string(rawData); 
+        var from_MB = "";
+        from_MB = bin2string(rawData); 
         if (parseInt(from_MB) == 1){
             inputs['button-A'] = 1;
             inputs['button-B'] = 0;
