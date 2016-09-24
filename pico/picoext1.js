@@ -13,8 +13,8 @@
 
     // Reporters
   
-    ext.buttonA = function()  { return getSensor('button-A'); };
-    ext.buttonB = function()  { return getSensor('button-B'); };
+    ext.button_A = function()  { return getSensor('button-A'); };
+    ext.button_B = function()  { return getSensor('button-B'); };
     ext.getP0 = function()  { return getSensor('P0'); };
    
     function getSensor(whichSensor) {
@@ -119,8 +119,8 @@
             ['b', 'button %m.button?',	'getSensorBooleanValue',		'A pressed'],
 
             ['r', 'P0',		'getP0'],
-            ['r', 'A',	'buttonA'],
-            ['r', 'B',	'buttonB']
+            ['r', 'A',	'button_A'],
+            ['r', 'B',	'button_B']
         ],
         menus: {
             button: ['A pressed', 'B pressed'],
