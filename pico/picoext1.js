@@ -176,5 +176,5 @@
         },
         url: 'http://info.scratch.mit.edu/Sensor_Board'
     };
-    ScratchExtensions.register('Microbit', descriptor, ext, {type: 'serial'});
+    ScratchExtensions.register('MicroBit', descriptor, ext, {type: 'serial'});
 })({});
