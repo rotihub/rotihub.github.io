@@ -93,7 +93,12 @@
         console.log('inputs'+inputs);
         rawData = null;
     }
-
+    function bin2string(array){
+        var result = "";
+        for(var i = 0; i < array.byteLength; ++i){
+            result+= (String.fromCharCode(array[i]));
+        }
+    }      
     function appendBuffer( buffer1, buffer2 ) {
         var tmp = new Uint8Array( buffer1.byteLength + buffer2.byteLength );
         tmp.set( new Uint8Array( buffer1 ), 0 );
@@ -125,20 +130,10 @@
             console.log('Received: ' + data.byteLength);            
             if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
             else rawData = appendBuffer(rawData, data);
-
-
-//function bin2string(array){
-	var result = "";
-	for(var i = 0; i < rawData.byteLength; ++i){
-		result+= (String.fromCharCode(rawData[i]));
-	}
-	console.log('my stuff' + result);
-//}              
-              
-              
-  //          if(rawData.byteLength >= 18) {
-                console.log(rawData);
-                processData();
+    
+              console.log('my stuff' + bin2string(rawData)); 
+              console.log(rawData);
+              processData();
                 //device.send(pingCmd.buffer);
 //            }
         });
@@ -192,5 +187,5 @@
         },
         url: 'http://info.scratch.mit.edu/Sensor_Board'
     };
-    ScratchExtensions.register('Microisht', descriptor, ext, {type: 'serial'});
+    ScratchExtensions.register('Microbit', descriptor, ext, {type: 'serial'});
 })({});
