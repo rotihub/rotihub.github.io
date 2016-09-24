@@ -144,7 +144,6 @@
     };
 
     ext._getStatus = function() {
-         console.log('get status');
         if(!device) return {status: 1, msg: 'PicoBoard disconnected'};
         return {status: 2, msg: 'PicoBoard connected'};
     }
