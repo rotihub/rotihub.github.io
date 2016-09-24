@@ -63,6 +63,7 @@
     function processData() {
         console.log('process data');
         var bytes = new Uint8Array(rawData);
+        console.log('bytes' +bytes);
         for(var i=0; i<9; ++i) {
             var hb = bytes[i*2] & 127;
             var channel = hb >> 3;
@@ -123,7 +124,6 @@
    function deviceOpened(dev) {
           device.set_receive_handler(function(data) {
             console.log('Received: ' + data.byteLength);            
-            console.log('Data: ' + data);            
             if(!rawData || rawData.byteLength == 18) rawData = new Uint8Array(data);
             else rawData = appendBuffer(rawData, data);
 
