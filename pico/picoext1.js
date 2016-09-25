@@ -6,7 +6,10 @@
     var inputs = {
         'button-A': 0,
         'button-B': 0,
-        'P0': ""
+        'P0': "",
+        'P1':"",
+        'P2':"",
+        'A+B':""
     };
 
     ext.resetAll = function(){};
@@ -16,7 +19,10 @@
     ext.button_A = function()  { return getSensor('button-A'); };
     ext.button_B = function()  { return getSensor('button-B'); };
     ext.getP0 = function()  { return getSensor('P0'); };
-   
+    ext.getP1 = function()  { return getSensor('P1'); };
+    ext.getP2 = function()  { return getSensor('P2'); };
+    ext.getAB = function()  { return getSensor('A+B'); };
+
     function getSensor(whichSensor) {
  //         console.log('whichSensor');
         return inputs[whichSensor];
@@ -53,11 +59,26 @@
                 inputs['button-A'] = 0;
                 inputs['button-B'] = 1;
                 break;
-            default:
+            case 3:
                 inputs['button-A'] = 0;
                 inputs['button-B'] = 0;
                 inputs['P0'] = from_MB;
-            }
+                break;
+            case 4:
+                inputs['button-A'] = 0;
+                inputs['button-B'] = 0;
+                inputs['P1'] = from_MB;
+                break;
+            case 5:
+                inputs['button-A'] = 0;
+                inputs['button-B'] = 0;
+                inputs['P2'] = from_MB;
+                break;
+            case 6:
+                inputs['button-A'] = 0;
+                inputs['button-B'] = 0;
+                inputs['A+B'] = from_MB;
+             }
         rawData = null;
     }
     function bin2string(array){
@@ -128,6 +149,9 @@
             ['b', 'button %m.key?',	'getbuttonpressedValue',		'A pressed'],
 
             ['r', 'P0',		'getP0'],
+            ['r', 'P1',		'getP1'],
+            ['r', 'P2',		'getP2'],
+            ['r', 'AB',	'getAB'],
             ['r', 'A',	'button_A'],
             ['r', 'B',	'button_B']
         ],
