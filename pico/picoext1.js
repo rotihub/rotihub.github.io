@@ -43,19 +43,21 @@
    //    	console.log('process data');
         var from_MB = "";
         from_MB = bin2string(rawData); 
-       console.log(from_MB);
-       if (parseInt(from_MB) == 1){
-            inputs['button-A'] = 1;
-            inputs['button-B'] = 0;
-        } else if (parseInt(from_MB) == 2){
-            inputs['button-A'] = 0;
-            inputs['button-B'] = 1;
-        } else{
-            inputs['button-A'] = 0;
-            inputs['button-B'] = 0;
-            inputs['P0'] = from_MB;
-
-        };
+        console.log(from_MB);
+        switch (parseInt(from_MB)){
+            case 1:
+                inputs['button-A'] = 1;
+                inputs['button-B'] = 0;
+                break;
+            case 2:
+                inputs['button-A'] = 0;
+                inputs['button-B'] = 1;
+                break;
+            default:
+                inputs['button-A'] = 0;
+                inputs['button-B'] = 0;
+                inputs['P0'] = from_MB;
+            }
         rawData = null;
     }
     function bin2string(array){
