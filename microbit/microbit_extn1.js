@@ -1,8 +1,8 @@
-new (function() {
+(function(ext) {
     var device = null;
     var input = null;
     var poller = null;
-    var ext = this;
+//    var ext = this;
 
     ext._deviceConnected = function(dev) {
         if(device) return;
