@@ -1,5 +1,5 @@
 
-new (function() {
+(function(ext) {
     var device = null;
     var input = null;
     var poller = null;
