@@ -12,10 +12,11 @@
         device.open();
 
         poller = setInterval(function() {
-            device.read(48,input);
-        }, 10);
+//            device.read(48,input);
+            input = device.read(48);
+            console.log(input);
+        }, 50);
 
-        setInterval(function() { console.log(input); }, 100);
     };
 
     ext._deviceRemoved = function(dev) {
