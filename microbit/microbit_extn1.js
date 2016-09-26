@@ -1,5 +1,4 @@
-
-(function(ext) {
+new (function() {
     var device = null;
     var input = null;
     var poller = null;
@@ -10,7 +9,7 @@
 
         device = dev;
         device.open();
-
+console.log("device");
         poller = setInterval(function() {
 //            device.read(48,input);
             input = device.read(48);
